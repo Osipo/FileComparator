@@ -1,0 +1,25 @@
+{
+  "words": [
+    {"id": "num", "pattern": "[0-9]+","className": "numeric"},
+    {"id": "id", "pattern": "[A-Za-z@_][A-Za-z@_0-9]+"},
+    {"id": "string", "pattern": "\"_+\"" },
+    {"id": "COMM","pattern": "--"},
+    {"id": "MLCOMMSTART", "pattern": "/*"},
+    {"id": "OPBRACE","pattern": "(", "className": "op"},
+    {"id": "CLBRACE","pattern": ")", "className": "op"},
+    {"id": "MULL","pattern": "*", "className": "op"},
+    {"id": "PLUS","pattern": "+", "className": "op"},
+    {"id": "GT","pattern": ">", "className": "op"}
+  ],
+  "keywords": ["if","else","while","begin","end","select","from","where","order","by","null"],
+  "styles": [
+    {"selector": "#num", "color": "orange"},
+    {"selector": "keywords", "color": "blue","size": 18},
+    {"selector": "string", "color": "red"},
+    {"selector": "op","color": "brown"}
+  ],
+  "comment": "COMM",
+  "mlCommentStart": "MLCOMMSTART",
+  "mlCommentEnd": "*/",
+  "extensions": ["sql","tsql"]
+}
