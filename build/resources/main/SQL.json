@@ -11,11 +11,11 @@
     {"id": "PLUS","pattern": "+", "className": "op"},
     {"id": "GT","pattern": ">", "className": "op"}
   ],
-  "keywords": ["if","else","while","begin","end","select","from","where","order","by","null"],
+  "keywords": ["IF","ELSE","WHILE","BEGIN","END","SELECT","FROM","WHERE","ORDER","BY","NULL"],
   "styles": [
     {"selector": "#num", "color": "orange"},
     {"selector": "keywords", "color": "blue","size": 18},
-    {"selector": "string", "color": "red"},
+    {"selector": "#string", "color": "red"},
     {"selector": "op","color": "brown"}
   ],
   "comment": "COMM",

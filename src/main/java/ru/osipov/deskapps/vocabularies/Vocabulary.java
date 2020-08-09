@@ -173,8 +173,6 @@ public class Vocabulary {
             throw new InvalidJsonDocumentException("Property name \"mlCommentStart\" must be JsonString! ",null);
 
         System.out.println("Vocabulary was built.");
-        if(empty == null)
-            empty = "";
         System.out.println(this);
     }
 

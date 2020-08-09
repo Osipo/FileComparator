@@ -11,6 +11,7 @@ import ru.osipov.deskapps.vocabularies.Vocabulary;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -22,7 +23,7 @@ public class DFALexer extends DFA implements ILexer {
     private String commentStart;
     private String mlcStart;
     private String mlcEnd;
-    private JTextPane target;
+    private Document target;
 
 //
 //    private Set<String> operands;
@@ -122,11 +123,11 @@ public class DFALexer extends DFA implements ILexer {
         this.mlcEnd = V.getMlCommentEnd();
     }
 
-    public void setTarget(JTextPane editor){
-        this.target = editor;
+    public void setTarget(Document doc){
+        this.target = doc;
     }
 
-    public JTextPane getTarget(){
+    public Document getTarget(){
         return target;
     }
 
@@ -160,7 +161,7 @@ public class DFALexer extends DFA implements ILexer {
     public Token recognize(InputStream f) throws IOException, BadLocationException {
         char cur = (char)io.getch(f);
         while(cur == ' ' || cur == '\t' || cur == '\n' || cur == '\r') {
-            target.getDocument().insertString(target.getDocument().getLength(),cur+"",target.getCharacterAttributes());
+            target.insertString(target.getLength(),cur+"",null);
             if (cur == '\n') {
                 io.setCol(0);
             }
@@ -303,9 +304,9 @@ public class DFALexer extends DFA implements ILexer {
 
 
     private Vertex moveTo(Vertex v, char c){
-        String s = c + "";
-        char ch = s.toLowerCase().charAt(0);
-        List<Pair<Vertex,Character>> k = tranTable.keySet().stream().filter(x -> x.getV1().equals(v) && x.getV2() == ch).collect(Collectors.toList());
+//        String s = c + "";
+//        char ch = s.toLowerCase().charAt(0);
+        List<Pair<Vertex,Character>> k = tranTable.keySet().stream().filter(x -> x.getV1().equals(v) && x.getV2() == c).collect(Collectors.toList());
         List<Pair<Vertex,Character>> k2 = tranTable.keySet().stream().filter(x -> x.getV1().equals(v) && x.getV2() == (char)0).collect(Collectors.toList());
         return k.size() > 0 ? tranTable.get(k.get(0)) : k2.size() > 0 ? tranTable.get(k2.get(0)) : null;
     }

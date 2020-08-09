@@ -3,6 +3,7 @@ package ru.osipov.deskapps;
 import ru.osipov.deskapps.json.SimpleJsonParser;
 import ru.osipov.deskapps.json.jsElements.JsonObject;
 import ru.osipov.deskapps.listeners.file.SelectFile;
+import ru.osipov.deskapps.vocabularies.StyleInitializer;
 import ru.osipov.deskapps.vocabularies.Vocabulary;
 
 import javax.swing.*;
@@ -164,6 +165,7 @@ public class App extends JFrame {
                         JsonObject ob = parser.parseStream(in);
                         if (ob != null) {
                             this.currentV = new Vocabulary(ob);
+                            initStyles();
                             JOptionPane.showMessageDialog(this,"Vocabulary was successful loaded!");
                         } else {
                             JOptionPane.showMessageDialog(this, "Cannot create vocabulary!\n\tCannot parse to JsonDocument!");
@@ -184,4 +186,9 @@ public class App extends JFrame {
         p.add(vocabularies);
         frame.add(p,new GridBagConstraints(0,0,1,1,1,1,GridBagConstraints.CENTER,GridBagConstraints.BOTH,new Insets(0,0,0,20),0,0));
     }
+
+    public void initStyles(){
+        StyleInitializer.initStyles(txtEditor1,txtEditor2,currentV);
+    }
+
 }

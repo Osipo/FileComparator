@@ -13,6 +13,7 @@ import ru.osipov.deskapps.vocabularies.Word;
 
 import javax.swing.*;
 import javax.swing.text.*;
+import javax.swing.text.html.StyleSheet;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,8 +53,9 @@ public class SelectFile implements ActionListener {
                 if(ob != null){
                     try {
                         Vocabulary v = new Vocabulary(ob);
-                        if(p instanceof App){
-                            ((App) p).setVocabulary(v);
+                        if(p instanceof App){//Vocabulary was created.
+                            ((App) p).setVocabulary(v);//Save it into App
+                            ((App) p).initStyles();//And add styles to editors.
                         }
                         JOptionPane.showMessageDialog(p,"Vocabulary was successful loaded!");
                     }catch (InvalidJsonDocumentException err){
@@ -68,7 +70,8 @@ public class SelectFile implements ActionListener {
                     Vocabulary v = ((App) p).getCurrentVocabulary();
                     if(v != null){
                         DFALexer lexer = new DFALexer(v);
-                        lexer.setTarget(editor);
+                        Document doc = editor.getDocument();
+                        lexer.setTarget(doc);
                         Token t = new Token(null,"ini",'i');
                         try(FileInputStream fl = new FileInputStream(f)){//READ FROM FILE
                             while(!t.getLexem().equals("$")) {//while not(EOF)
@@ -76,28 +79,20 @@ public class SelectFile implements ActionListener {
                                 while(t == null)
                                     t = lexer.recognize(fl);
                                 String id = t.getName();
-                                System.out.println(t.getLexem());
-                                if(id.equals("keywords")){
-                                    StyleRule r = v.getStyles().get("keywords");
-                                    SimpleAttributeSet attrs = new SimpleAttributeSet();
-                                    setStyle(r,attrs);
-                                    StyledDocument doc = editor.getStyledDocument();
-                                    doc.insertString(doc.getLength(),t.getLexem(),attrs);
-                                    continue;
-                                }
                                 Word w = v.getWords().get(id);
                                 if(w != null){
-                                    StyleRule r = v.getStyles().get("#"+id);
-                                    SimpleAttributeSet attrs = new SimpleAttributeSet();
-                                    setStyle(r,attrs);
                                     String cl = w.getClassName();
+                                    Style s = null;
                                     if(cl != null){
-                                        StyleRule rc = v.getStyles().get(cl);
-                                        setStyle(rc,attrs);
+                                        s = editor.getStyle(cl);
                                     }
-                                    StyledDocument doc = editor.getStyledDocument();
-                                    doc.insertString(doc.getLength(),t.getLexem(),attrs);
+                                    else
+                                        s = editor.getStyle("#"+id);
+                                    doc.insertString(doc.getLength(),t.getLexem(),s);
+
                                 }
+                                else
+                                    doc.insertString(doc.getLength(),t.getLexem(),null);
                             }
                         }
                         catch (IOException ex){
@@ -107,27 +102,6 @@ public class SelectFile implements ActionListener {
                             System.out.println("Cannot apply styles!");
                         }
                     }
-                }
-            }
-        }
-    }
-
-    private void setStyle(StyleRule rule,SimpleAttributeSet attrs){
-        if(rule != null) {
-            String c = rule.getColor() == null ? "BLACK" : rule.getColor();
-            String f = rule.getFont() == null ? "Serif" : rule.getFont();
-            int sz = rule.getSize() == null ? 14 : rule.getSize();
-            TextWeight w = rule.getWeight() == null ? TextWeight.NORMAL : rule.getWeight();
-            StyleConstants.setForeground(attrs, Color.getColor(c.toUpperCase()));
-            StyleConstants.setFontSize(attrs,sz);
-            StyleConstants.setFontFamily(attrs,f);
-            switch(w){
-                case BOLD: StyleConstants.setBold(attrs,true); break;
-                case ITALIC:StyleConstants.setItalic(attrs,true); break;
-                case NORMAL: default:{
-                    StyleConstants.setItalic(attrs,false);
-                    StyleConstants.setBold(attrs,false);
-                    break;
                 }
             }
         }

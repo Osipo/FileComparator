@@ -55,11 +55,12 @@ public class FALexerGenerator {
                 else {
                     //replace empty and any with one-character symbols.
                     String p_i = new String(pattern.toCharArray());
-                    p_i = p_i.replaceAll(V.getEmpty(),(char)1+"");//special symbol for empty-character.
+                    if(V.getEmpty() != null)
+                        p_i = p_i.replaceAll(V.getEmpty(),(char)1+"");//special symbol for empty-character.
                     p_i = p_i.replaceAll("(?<!@)_",(char)0+"");//another special symbol for any character.
                     p_i = p_i.replaceAll("@_","_");
 
-                    //System.out.println("Pattern: " +p_i);
+                    System.out.println("Pattern: " +p_i);
                     parser.setTerminals(p_i.toCharArray());
                     p_i = RegexProcessor.addConcat(p_i,parser);//convert classes [A-Z] to (A|..|Z) expressions
                     parser.setTerminals(p_i.toCharArray());
