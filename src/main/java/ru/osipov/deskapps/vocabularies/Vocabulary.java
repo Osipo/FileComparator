@@ -209,7 +209,7 @@ public class Vocabulary {
             throw new InvalidJsonDocumentException("Property name \"size\" must have a Numeric value! ",null);
         JsonElement weight = ob.getElement("weight");
         if(weight instanceof JsonString){
-            TextWeight v = TextWeight.valueOf(((JsonString) weight).getValue());
+            TextWeight v = TextWeight.valueOf(((JsonString) weight).getValue().toUpperCase());
             if(s.getWeight() != null)
                 throw new InvalidJsonDocumentException("Cannot override value of property \"weight\" "+s.getWeight()+" with" + v
                         + "\n for selector "+s.getSelector(),null);
@@ -274,7 +274,7 @@ public class Vocabulary {
         }
         b.append("\n\t}");
         b.append("\n\tempty: ").append(this.empty);
-        b.append("\n\tstyles: ");
+        b.append("\n\tstyles: {");
         Set<String> ks = styles.keySet();
         for(String k : ks){
             b.append("\n\t\t").append(k).append(styles.get(k));

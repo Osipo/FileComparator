@@ -2,15 +2,14 @@ package ru.osipov.deskapps;
 
 import ru.osipov.deskapps.json.SimpleJsonParser;
 import ru.osipov.deskapps.json.jsElements.JsonObject;
+import ru.osipov.deskapps.lexers.DFALexer;
+import ru.osipov.deskapps.listeners.file.CompareTwoFiles;
 import ru.osipov.deskapps.listeners.file.SelectFile;
 import ru.osipov.deskapps.vocabularies.StyleInitializer;
 import ru.osipov.deskapps.vocabularies.Vocabulary;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.io.File;
 import java.io.InputStream;
 
 public class App extends JFrame {
@@ -21,18 +20,15 @@ public class App extends JFrame {
     private JScrollPane txtwrapper1;
     private JScrollPane txtwrapper2;
     private Vocabulary currentV;
+    private DFALexer lexer;
+    private boolean selected1 = false;//are File 1 and File 2 opened now.
+    private boolean selected2 = false;
+    private CompareTwoFiles compHandler;
+
 
     private int w;
     private int h;
 
-
-    public void setVocabulary(Vocabulary v){
-        this.currentV = v;
-    }
-
-    public Vocabulary getCurrentVocabulary(){
-        return currentV;
-    }
 
     public App(){
         super("FileComparator");
@@ -47,12 +43,52 @@ public class App extends JFrame {
         txtwrapper1 = new JScrollPane(txtEditor1);
         txtEditor2 = new JTextPane();
         txtwrapper2 = new JScrollPane(txtEditor2);
+        lexer = null;
+        compHandler = new CompareTwoFiles(this,null,null,null,null);
 
         initLeft(pane);
         initCenter(pane);
         initToolBar(pane);
         pack();
         setVisible(true);
+    }
+
+    public void setVocabulary(Vocabulary v){
+        this.currentV = v;
+    }
+
+    public Vocabulary getCurrentVocabulary(){
+        return currentV;
+    }
+
+    public DFALexer getLexer(){
+        return lexer;
+    }
+
+    public void setLexer(DFALexer l){
+        this.lexer = l;
+        compHandler.setLexer(l);
+        compHandler.setStyle(txtEditor1.getStyle("comparison"));
+    }
+
+    public void setSelected1(boolean selected1) {
+        this.selected1 = selected1;
+    }
+
+    public void setSelected2(boolean selected2) {
+        this.selected2 = selected2;
+    }
+
+    public boolean isSelected1() {
+        return selected1;
+    }
+
+    public boolean isSelected2() {
+        return selected2;
+    }
+
+    public CompareTwoFiles getCompHandler(){
+        return compHandler;
     }
 
     private void initLeft(Container frame){
@@ -105,6 +141,7 @@ public class App extends JFrame {
         JMenuItem op1 = new JMenuItem("Open File 1");
         JMenuItem op2 = new JMenuItem("Open File 2");
         JMenuItem close = new JMenuItem("Close");
+        JMenuItem comp = new JMenuItem("Compare");
         JMenuItem save = new JMenuItem("Save");
         JMenuItem saveAll = new JMenuItem("Save all");
         JSeparator sep = new JSeparator();
@@ -114,14 +151,20 @@ public class App extends JFrame {
 
         exit.addActionListener((x) -> System.exit(0));
 
-        op1.addActionListener(new SelectFile(this,txtEditor1));
-        op2.addActionListener(new SelectFile(this,txtEditor2));
+        op1.addActionListener(new SelectFile(this,txtEditor1,true));
+        op2.addActionListener(new SelectFile(this,txtEditor2,false));
         close.addActionListener((x) -> {
             txtEditor1.setText(null);
             txtEditor2.setText(null);
+            setSelected1(false);
+            setSelected2(false);
         });
+
+        comp.addActionListener(compHandler);
+
         file.add(op1);
         file.add(op2);
+        file.add(comp);
         file.add(close);
         file.add(save);
         file.add(saveAll);
@@ -154,6 +197,8 @@ public class App extends JFrame {
         JComboBox<String> vocabularies = new JComboBox<>();
         vocabularies.addItem("SQL");
         vocabularies.addItem("Custom");
+
+        //ComboBox Item LISTENERS
         vocabularies.addActionListener((x) -> {
             String s = (String)vocabularies.getSelectedItem();
             if(s != null)
@@ -166,6 +211,9 @@ public class App extends JFrame {
                         if (ob != null) {
                             this.currentV = new Vocabulary(ob);
                             initStyles();
+                            lexer = new DFALexer(currentV);
+                            compHandler.setLexer(lexer);
+
                             JOptionPane.showMessageDialog(this,"Vocabulary was successful loaded!");
                         } else {
                             JOptionPane.showMessageDialog(this, "Cannot create vocabulary!\n\tCannot parse to JsonDocument!");
@@ -176,7 +224,7 @@ public class App extends JFrame {
                 }
                 else{
                     System.out.println("Custom");
-                    SelectFile act = new SelectFile(this,null);
+                    SelectFile act = new SelectFile(this,null,false);
                     act.actionPerformed(null);
                 }
         });

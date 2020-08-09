@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
-public class DFALexer extends DFA implements ILexer {
+public class DFALexer extends DFA implements ILexer, Cloneable {
 
     private LexerIO io;
     private Set<String> keywords;
@@ -30,6 +30,7 @@ public class DFALexer extends DFA implements ILexer {
 //    private Map<String,String> aliases;
 //    private Token prevTok;
 //    private String id;
+
 
     public DFALexer(DFA dfa, LexerIO io){
         super(dfa,true);
@@ -121,6 +122,11 @@ public class DFALexer extends DFA implements ILexer {
         this.commentStart = V.getComment();
         this.mlcStart = V.getMlCommentStart();
         this.mlcEnd = V.getMlCommentEnd();
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public void setTarget(Document doc){
@@ -321,5 +327,10 @@ public class DFALexer extends DFA implements ILexer {
         io.setLine(1);
         io.clear();
         //this.prevTok = null;
+    }
+
+    //Set Source (from what Lexer must read)
+    public void setIO(LexerIO io){
+        this.io = io;
     }
 }

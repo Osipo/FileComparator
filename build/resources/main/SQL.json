@@ -2,21 +2,23 @@
   "words": [
     {"id": "num", "pattern": "[0-9]+","className": "numeric"},
     {"id": "id", "pattern": "[A-Za-z@_][A-Za-z@_0-9]+"},
-    {"id": "string", "pattern": "\"_+\"" },
+    {"id": "string", "pattern": "\'_+\'" },
     {"id": "COMM","pattern": "--"},
     {"id": "MLCOMMSTART", "pattern": "/*"},
     {"id": "OPBRACE","pattern": "(", "className": "op"},
     {"id": "CLBRACE","pattern": ")", "className": "op"},
     {"id": "MULL","pattern": "*", "className": "op"},
     {"id": "PLUS","pattern": "+", "className": "op"},
-    {"id": "GT","pattern": ">", "className": "op"}
+    {"id": "GT","pattern": ">", "className": "op"},
+    {"id": "NE","pattern": "<>","className": "op"},
+    {"id": "dot", "pattern": ".", "className": "op"}
   ],
   "keywords": ["IF","ELSE","WHILE","BEGIN","END","SELECT","FROM","WHERE","ORDER","BY","NULL"],
   "styles": [
     {"selector": "#num", "color": "orange"},
     {"selector": "keywords", "color": "blue","size": 18},
     {"selector": "#string", "color": "red"},
-    {"selector": "op","color": "brown"}
+    {"selector": "op","color": "midnight_blue", "weight": "bold"}
   ],
   "comment": "COMM",
   "mlCommentStart": "MLCOMMSTART",
