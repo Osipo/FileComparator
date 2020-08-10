@@ -11,3 +11,15 @@ The built application will be appeared in **./build/libs**
 
 ## Usage
 The built app (jar file) is located in directory **./build/libs**
+First of all you must LOAD the **Dictionary**. The **Dictionary**
+defines a set of ***words*** which may appear within in files.
+You can load a predefined Dictionary from list or load 
+**own Dictionary** (select Custom option in ComboBox).
+Each **Dictionary** is described by json document.
+### Dictionary Structure
+The structure of json document is described as follows
+> { 
+    "words": [{"id": "uniqueIdName", "pattern": "regex"},...]
+    "styles": [{"selector": "#id or className", "color": "colorName", "size": int},...],
+    "extensions": ["txt","sql",...]
+}
