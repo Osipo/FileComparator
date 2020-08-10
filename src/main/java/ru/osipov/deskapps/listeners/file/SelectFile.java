@@ -20,11 +20,13 @@ public class SelectFile implements ActionListener {
 
     private Component p;
     private JTextPane editor;
-    private boolean isFirstEditor;
-    public SelectFile(Component component, JTextPane editor, boolean isFirstEditor){
+    private JLabel fname;
+    private SelectedItem isFirstEditor;
+    public SelectFile(Component component, JTextPane editor, SelectedItem isFirstEditor, JLabel fname){
         this.p = component;
         this.editor = editor;
         this.isFirstEditor = isFirstEditor;
+        this.fname = fname;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -33,7 +35,17 @@ public class SelectFile implements ActionListener {
         int result = fileChooser.showOpenDialog(p);
         if (result == JFileChooser.APPROVE_OPTION) {
             File f = fileChooser.getSelectedFile();
+            String fn = f.getAbsolutePath();
             System.out.println("Selected file: " + f.getAbsolutePath());
+            if(fname != null) {
+                if(fn.length() > 40){//Filename too long
+                    String c = fn.substring(0,3) + "...\\" + f.getName();
+                    fname.setText(c);
+                }
+                else
+                    fname.setText(fn);
+                fname.setToolTipText(fn);//Tip preserves full FileName.
+            }
             if(editor == null){//Action from ComboBox.
                 SimpleJsonParser parser = new SimpleJsonParser();
                 System.out.println("No editor");
@@ -59,9 +71,9 @@ public class SelectFile implements ActionListener {
             else{//write file content to specified editor.
                 if(p instanceof App){//check that we pass the Application GUI instance
                     Vocabulary v = ((App) p).getCurrentVocabulary();//get from GUI current Vocabulary.
-                    if(isFirstEditor)
+                    if(isFirstEditor == SelectedItem.FIRST)
                          ((App) p).setSelected1(true);
-                    else
+                    else if(isFirstEditor == SelectedItem.SECOND)
                         ((App) p).setSelected2(true);
                     if(v != null){//Vocabulary was set.
                         DFALexer lexer = ((App) p).getLexer();//get built Lexer from App
@@ -96,9 +108,9 @@ public class SelectFile implements ActionListener {
                                 else
                                     doc.insertString(doc.getLength(),t.getLexem(),null);
                             }
-                            if(isFirstEditor)
+                            if(isFirstEditor == SelectedItem.FIRST)
                                 ((App) p).getCompHandler().setDoc1(doc);
-                            else
+                            else if(isFirstEditor == SelectedItem.SECOND)
                                 ((App) p).getCompHandler().setDoc2(doc);
                             ((App) p).getCompHandler().setStyle(editor.getStyle("comparison"));
                         }

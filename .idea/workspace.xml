@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7809c392-ae0d-4673-baab-287ea0202552" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/lexers/JTextPaneReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/listeners/file/CompareTwoFiles.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/vocabularies/ColorStyle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/listeners/file/SelectedItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -14,19 +12,10 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/ru/osipov/deskapps/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ru/osipov/deskapps/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ru/osipov/deskapps/lexers/DFALexer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ru/osipov/deskapps/lexers/DFALexer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/ru/osipov/deskapps/listeners/file/SelectFile.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ru/osipov/deskapps/listeners/file/SelectFile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ru/osipov/deskapps/vocabularies/StyleInitializer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ru/osipov/deskapps/vocabularies/StyleInitializer$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ru/osipov/deskapps/vocabularies/StyleInitializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ru/osipov/deskapps/vocabularies/StyleInitializer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ru/osipov/deskapps/vocabularies/Vocabulary.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ru/osipov/deskapps/vocabularies/Vocabulary.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/SQL.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/SQL.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/FileComparator.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/FileComparator.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/lexers/DFALexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/lexers/DFALexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/lexers/LexerIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/lexers/LexerIO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/listeners/file/SelectFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/listeners/file/SelectFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/vocabularies/StyleInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/vocabularies/StyleInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/vocabularies/Vocabulary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/osipov/deskapps/vocabularies/Vocabulary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/SQL.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/SQL.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,8 +31,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -118,7 +107,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

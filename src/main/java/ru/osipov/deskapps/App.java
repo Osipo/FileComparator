@@ -5,10 +5,16 @@ import ru.osipov.deskapps.json.jsElements.JsonObject;
 import ru.osipov.deskapps.lexers.DFALexer;
 import ru.osipov.deskapps.listeners.file.CompareTwoFiles;
 import ru.osipov.deskapps.listeners.file.SelectFile;
+import ru.osipov.deskapps.listeners.file.SelectedItem;
 import ru.osipov.deskapps.vocabularies.StyleInitializer;
 import ru.osipov.deskapps.vocabularies.Vocabulary;
 
 import javax.swing.*;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Caret;
+import javax.swing.text.Utilities;
 import java.awt.*;
 import java.io.InputStream;
 
@@ -21,6 +27,10 @@ public class App extends JFrame {
     private JScrollPane txtwrapper2;
     private Vocabulary currentV;
     private DFALexer lexer;
+    private JLabel fname1;//File names.
+    private JLabel fname2;
+    private JLabel ed1CaretP;
+    private JLabel ed2CaretP;
     private boolean selected1 = false;//are File 1 and File 2 opened now.
     private boolean selected2 = false;
     private CompareTwoFiles compHandler;
@@ -38,18 +48,60 @@ public class App extends JFrame {
         setSize(new Dimension(w,h));
         Container pane = getContentPane();
         pane.setLayout(new BorderLayout());
-
+        setLocationRelativeTo(null);
         txtEditor1 = new JTextPane();
         txtwrapper1 = new JScrollPane(txtEditor1);
         txtEditor2 = new JTextPane();
         txtwrapper2 = new JScrollPane(txtEditor2);
         lexer = null;
         compHandler = new CompareTwoFiles(this,null,null,null,null);
-
+        fname1 = new JLabel();
+        fname2 = new JLabel();
+        ed1CaretP = new JLabel();
+        ed2CaretP = new JLabel();
         initLeft(pane);
         initCenter(pane);
         initToolBar(pane);
         pack();
+
+        txtEditor1.addCaretListener((c) ->{
+            JTextPane s = (JTextPane)c.getSource();
+            int caretPos = s.getCaretPosition();
+            int rowNum = (caretPos == 0) ? 1 : 0;
+            int colNum = -1;
+            try{
+                int offset = Utilities.getRowStart(s, caretPos);
+                colNum = caretPos - offset;// + 1;
+                for (offset = caretPos; offset > 0;) {
+                    offset = Utilities.getRowStart(s, offset) - 1;
+                    rowNum++;
+                }
+                this.ed1CaretP.setText("Line: "+rowNum+" Column:"+colNum);
+                //this.ed1CaretP.setText(rowNum+":"+colNum);
+            } catch (BadLocationException e) {
+                e.printStackTrace();
+                this.ed1CaretP.setText("Cannot find position!");
+            }
+        });
+        txtEditor2.addCaretListener((c) ->{
+            JTextPane s = (JTextPane)c.getSource();
+            int caretPos = s.getCaretPosition();
+            int rowNum = (caretPos == 0) ? 1 : 0;
+            int colNum = -1;
+            try{
+                int offset = Utilities.getRowStart(s, caretPos);
+                colNum = caretPos - offset;// + 1;
+                for (offset = caretPos; offset > 0;) {
+                    offset = Utilities.getRowStart(s, offset) - 1;
+                    rowNum++;
+                }
+                this.ed2CaretP.setText("Line: "+rowNum+" Column:"+colNum);
+                //this.ed2CaretP.setText(rowNum+":"+colNum);
+            } catch (BadLocationException e) {
+                e.printStackTrace();
+                this.ed2CaretP.setText("Cannot find position!");
+            }
+        });
         setVisible(true);
     }
 
@@ -87,6 +139,14 @@ public class App extends JFrame {
         return selected2;
     }
 
+    public JLabel getFname1(){
+        return fname1;
+    }
+
+    public JLabel getFname2(){
+        return fname2;
+    }
+
     public CompareTwoFiles getCompHandler(){
         return compHandler;
     }
@@ -98,6 +158,8 @@ public class App extends JFrame {
         JPanel sc = new JPanel();
         sc.setPreferredSize(left.getMinimumSize());
         left.add(sc);
+
+        //NOT READY YET. COMMENT
         JPanel scroller = new JPanel();
         scroller.setPreferredSize(new Dimension((int)left.getMinimumSize().getWidth(),30));
         sc.setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
@@ -129,8 +191,69 @@ public class App extends JFrame {
 //        up2.setBackground(Color.YELLOW);
 //        lp1.setBackground(Color.YELLOW);
 //        lp2.setBackground(Color.CYAN);
-//        content.setBackground(Color.GREEN);
+
+        //INIT UP CELLS
+        up1.setLayout(new GridBagLayout());
+        up2.setLayout(new GridBagLayout());
+        initMenuEditor(up1,SelectedItem.FIRST);
+        initMenuEditor(up2,SelectedItem.SECOND);
+
+
+        //Add FileName labels.
+        JLabel l1 = new JLabel("Filename: ");
+        JPanel fn = new JPanel(new FlowLayout(FlowLayout.LEADING,0,0));
+        fn.add(l1);
+        fn.add(fname1);
+
+        up1.add(fn, new GridBagConstraints(0,1,1,1,1,0.1,GridBagConstraints.SOUTH,GridBagConstraints.BOTH,new Insets(0,0,0,0),0,0));
+
+        JLabel l2 = new JLabel("Filename: ");
+        JPanel fn2 = new JPanel(new FlowLayout(FlowLayout.LEADING,0,0));
+        fn2.add(l2);
+        fn2.add(fname2);
+
+        up2.add(fn2, new GridBagConstraints(0,1,1,1,1,0.1,GridBagConstraints.LINE_START,GridBagConstraints.BOTH,new Insets(0,0,0,0),0,0));
+
+        //INIT LOW CELLS
+        lp1.setLayout(new FlowLayout(FlowLayout.TRAILING,0,0));
+        lp2.setLayout(new FlowLayout(FlowLayout.TRAILING,0,0));
+        lp1.add(ed1CaretP);
+        lp2.add(ed2CaretP);
+
+
         frame.add(content,BorderLayout.CENTER);
+    }
+
+    private void initMenuEditor(Container frame, SelectedItem item){
+        JPanel bar = new JPanel();
+        bar.setBackground(Color.LIGHT_GRAY);
+        frame.add(bar,new GridBagConstraints(0,0,1,1,1,1,GridBagConstraints.NORTH,GridBagConstraints.BOTH,new Insets(0,0,0,0),0,0));
+        bar.setLayout(new FlowLayout(FlowLayout.TRAILING,30,0));
+        JButton op = new JButton();
+        op.setText("Open");
+        if(item == SelectedItem.FIRST)
+            op.addActionListener(new SelectFile(this,txtEditor1,item,fname1));
+        else if(item == SelectedItem.SECOND)
+            op.addActionListener(new SelectFile(this,txtEditor2,item,fname2));
+        JButton cls = new JButton();
+        cls.setText("Close");
+        cls.addActionListener((x) ->{
+            if(item == SelectedItem.FIRST) {
+                txtEditor1.setText(null);
+                setSelected1(false);
+                fname1.setText(null);
+                fname1.setToolTipText(null);
+            }
+            else if(item == SelectedItem.SECOND) {
+                txtEditor2.setText(null);
+                setSelected2(false);
+                fname2.setText(null);
+                fname2.setToolTipText(null);
+            }
+        });
+        bar.add(op);
+        bar.add(cls);
+        bar.setPreferredSize(new Dimension((int)frame.getMinimumSize().getWidth(),(int)(frame.getMinimumSize().getHeight() / 2)));
     }
 
     private void initMenu(Container frame){
@@ -142,8 +265,8 @@ public class App extends JFrame {
         JMenuItem op2 = new JMenuItem("Open File 2");
         JMenuItem close = new JMenuItem("Close");
         JMenuItem comp = new JMenuItem("Compare");
-        JMenuItem save = new JMenuItem("Save");
-        JMenuItem saveAll = new JMenuItem("Save all");
+        //JMenuItem save = new JMenuItem("Save"); //NOT READY YET
+        //JMenuItem saveAll = new JMenuItem("Save all");
         JSeparator sep = new JSeparator();
         JMenuItem exit = new JMenuItem("Exit");
 
@@ -151,13 +274,17 @@ public class App extends JFrame {
 
         exit.addActionListener((x) -> System.exit(0));
 
-        op1.addActionListener(new SelectFile(this,txtEditor1,true));
-        op2.addActionListener(new SelectFile(this,txtEditor2,false));
+        op1.addActionListener(new SelectFile(this,txtEditor1, SelectedItem.FIRST,fname1));
+        op2.addActionListener(new SelectFile(this,txtEditor2,SelectedItem.SECOND,fname2));
         close.addActionListener((x) -> {
             txtEditor1.setText(null);
             txtEditor2.setText(null);
             setSelected1(false);
             setSelected2(false);
+            fname1.setText(null);
+            fname1.setToolTipText(null);
+            fname2.setText(null);
+            fname2.setToolTipText(null);
         });
 
         comp.addActionListener(compHandler);
@@ -166,8 +293,8 @@ public class App extends JFrame {
         file.add(op2);
         file.add(comp);
         file.add(close);
-        file.add(save);
-        file.add(saveAll);
+        //file.add(save); // NOT READY YET
+        //file.add(saveAll);
         file.add(sep);
         file.add(exit);
         m.add(file);
@@ -175,7 +302,7 @@ public class App extends JFrame {
         frame.add(m,BorderLayout.NORTH);
     }
 
-    //Toolbar is under the Menu.
+    //Toolbar is Container for Menu.
     private void initToolBar(Container frame){
         JPanel tbarw = new JPanel();
         tbarw.setLayout(new BorderLayout());
@@ -224,7 +351,7 @@ public class App extends JFrame {
                 }
                 else{
                     System.out.println("Custom");
-                    SelectFile act = new SelectFile(this,null,false);
+                    SelectFile act = new SelectFile(this,null,SelectedItem.NONE,null);
                     act.actionPerformed(null);
                 }
         });
