@@ -10,7 +10,7 @@ gradlew bootJar
 The built application will be appeared in **./build/libs**
 
 ## Usage
-The built app (jar file) is located in directory **./build/libs**
+The built app (jar file) is located in directory **./build/libs**  
 First of all you must LOAD the **Dictionary**. The **Dictionary**
 defines a set of ***words*** which may appear within in files.  
 You can load a predefined Dictionary from list or load  
