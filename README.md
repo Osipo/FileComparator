@@ -4,4 +4,10 @@ Compares two files. Ignores tabs, spaces and other useless symbols (only used fo
 Compares word by word.
 ## Build
 Open cmd (or bash) go to the root of the project (directory FileComparator) and execute:
-`gradlew bootJar`
+```
+gradlew bootJar
+```
+The built application will be appeared in **./build/libs**
+
+## Usage
+The built app (jar file) is located in directory **./build/libs**
