@@ -18,7 +18,9 @@ You can load a predefined Dictionary from list or load
 Each **Dictionary** is described by json document.  
 ### Dictionary Structure
 The structure of json document is described as follows
-> {  
+>  
+```json
+{  
 &emsp;&emsp;"words" : [  
 &emsp;&emsp;&emsp;&emsp;{"id" : "uniqueIdName", "pattern" : "regex" },  
 &emsp;&emsp;&emsp;&emsp;{"id" : "comLine", "pattern" : "//", "className": "comments" },  
@@ -36,9 +38,10 @@ The structure of json document is described as follows
 &emsp;&emsp;"mlCommentEnd" : "*/",  
 &emsp;&emsp;"extensions" : ["txt","sql",...]  
 }
+```
 
 Property `words` is a list of ***words***. Each ***word*** is *JsonObject*  
 with two required *properties*:  
- - `id` specifies an unqiue name. By that name the ***word*** can be found.
- - `pattern` specifies a ***regular expression*** for word. For example  
+ - `"id"` specifies an unqiue name. By that name the ***word*** can be found.
+ - `"pattern"` specifies a ***regular expression*** for word. For example  
  an expression `[0-9]+` specifies an infinity numeric character string.
