@@ -19,20 +19,20 @@ Each **Dictionary** is described by json document.
 ### Dictionary Structure
 The structure of json document is described as follows
 > {  
-&emsp;&emsp;&emsp;&emsp;"words" : [  
-        {"id" : "uniqueIdName", "pattern" : "regex" },  
-        {"id" : "comline", "pattern" : "//", "className": "comments" },  
-        {"id" : "mlCom", "pattern" : "/@*", "className": "comments" },  
-        {"id" : "unique", "pattern" : "regex", "className": "nonUnique" },  
-        ...  
-    ],   
-    "styles" : [  
-        {"selector" : "#unique", "color" : "red", "size" : int },  
-        {"selector" : "comments", "color" : "green" },  
-        ...  
-    ],  
-    "comment" : "comLine",  
-    "mlCommentStart" : "mlCom",  
-    "mlCommentEnd" : "*/",  
-    "extensions" : ["txt","sql",...]  
+&emsp;&emsp;"words" : [  
+&emsp;&emsp;&emsp;&emsp;{"id" : "uniqueIdName", "pattern" : "regex" },  
+&emsp;&emsp;&emsp;&emsp;{"id" : "comline", "pattern" : "//", "className": "comments" },  
+&emsp;&emsp;&emsp;&emsp;{"id" : "mlCom", "pattern" : "/@*", "className": "comments" },  
+&emsp;&emsp;&emsp;&emsp;{"id" : "unique", "pattern" : "regex", "className": "nonUnique" },  
+&emsp;&emsp;&emsp;&emsp;...  
+&emsp;&emsp;],   
+&emsp;&emsp;"styles" : [  
+&emsp;&emsp;&emsp;&emsp;{"selector" : "#unique", "color" : "red", "size" : int },  
+&emsp;&emsp;&emsp;&emsp;{"selector" : "comments", "color" : "green" },  
+&emsp;&emsp;&emsp;&emsp;...  
+&emsp;&emsp;],  
+&emsp;&emsp;"comment" : "comLine",  
+&emsp;&emsp;"mlCommentStart" : "mlCom",  
+&emsp;&emsp;"mlCommentEnd" : "*/",  
+&emsp;&emsp;"extensions" : ["txt","sql",...]  
 }
