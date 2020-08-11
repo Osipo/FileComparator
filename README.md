@@ -19,7 +19,7 @@ Each **Dictionary** is described by json document.
 ### Dictionary Structure
 The structure of json document is described as follows
 > {  
-    "words" : [  
+&emsp;&emsp;&emsp;&emsp;"words" : [  
         {"id" : "uniqueIdName", "pattern" : "regex" },  
         {"id" : "comline", "pattern" : "//", "className": "comments" },  
         {"id" : "mlCom", "pattern" : "/@*", "className": "comments" },  
