@@ -43,5 +43,7 @@ The structure of json document is described as follows
 Property `words` is a list of ***words***. Each ***word*** is *JsonObject*  
 with two required *properties*:  
  - `"id"` specifies an unqiue name. By that name the ***word*** can be found.
+ The value of this property is a **JsonString**.
  - `"pattern"` specifies a ***regular expression*** for word. For example  
- an expression `[0-9]+` specifies an infinity numeric character string.
+ an expression `[0-9]+` specifies an infinity numeric character string.  
+ The value of this property is a **JsonString**.
