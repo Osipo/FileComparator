@@ -21,7 +21,7 @@ The structure of json document is described as follows
 > {  
 &emsp;&emsp;"words" : [  
 &emsp;&emsp;&emsp;&emsp;{"id" : "uniqueIdName", "pattern" : "regex" },  
-&emsp;&emsp;&emsp;&emsp;{"id" : "comline", "pattern" : "//", "className": "comments" },  
+&emsp;&emsp;&emsp;&emsp;{"id" : "comLine", "pattern" : "//", "className": "comments" },  
 &emsp;&emsp;&emsp;&emsp;{"id" : "mlCom", "pattern" : "/@*", "className": "comments" },  
 &emsp;&emsp;&emsp;&emsp;{"id" : "unique", "pattern" : "regex", "className": "nonUnique" },  
 &emsp;&emsp;&emsp;&emsp;...  
@@ -36,3 +36,9 @@ The structure of json document is described as follows
 &emsp;&emsp;"mlCommentEnd" : "*/",  
 &emsp;&emsp;"extensions" : ["txt","sql",...]  
 }
+
+Property `words` is a list of ***words***. Each ***word*** is *JsonObject*  
+with two required *properties*:  
+ - `id` specifies an unqiue name. By that name the ***word*** can be found.
+ - `pattern` specifies a ***regular expression*** for word. For example  
+ an expression `[0-9]+` specifies an infinity numeric character string.
