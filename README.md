@@ -96,4 +96,4 @@ Technically this is not formally the DFA. It is based on model
 used in **Lex, JFLex and YACC** programs.
 
 ## Technical requirements.
-Compiled on `JDK 1.8.0_161`.
+Compiled on **JDK 1.8.0_161**.
