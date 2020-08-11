@@ -21,7 +21,7 @@ Each **Dictionary** is described by json document.
 ### Dictionary Structure
 The structure of json document is described as follows
 >  
-```json
+```JSON
 {  
     "words" : [  
         {"id" : "uniqueIdName", "pattern" : "regex" },  
@@ -31,7 +31,7 @@ The structure of json document is described as follows
     ],   
     "styles" : [  
         {"selector" : "#unique", "color" : "red", "size" : 12 },  
-        {"selector" : "comments", "color" : "green" },  
+        {"selector" : "comments", "color" : "green" }  
     ],  
     "comment" : "comLine",  
     "mlCommentStart" : "mlCom",  
