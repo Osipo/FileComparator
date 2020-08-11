@@ -91,7 +91,7 @@ There are only two quantifiers are used `*` and `+` which means:
  - `r1*` : zero or more times exactly r1.
 
 #### Regex details
-After processing all regexs the minimal DFA will be built.  
+After all regexs will be processed the minimal DFA will be built.  
 Technically this is not formally the DFA. It is based on model  
 used in **Lex, JFLex and YACC** programs.
 
