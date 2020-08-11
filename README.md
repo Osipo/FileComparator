@@ -19,7 +19,20 @@ Each **Dictionary** is described by json document.
 ### Dictionary Structure
 The structure of json document is described as follows
 > {  
-    "words": [{"id": "uniqueIdName", "pattern": "regex"},...]  
-    "styles": [{"selector": "#id or className", "color": "colorName", "size": int},...],  
-    "extensions": ["txt","sql",...]  
+    "words" : [  
+        {"id" : "uniqueIdName", "pattern" : "regex" },  
+        {"id" : "comline", "pattern" : "//", "className": "comments" },  
+        {"id" : "mlCom", "pattern" : "/@*", "className": "comments" },  
+        {"id" : "unique", "pattern" : "regex", "className": "nonUnique" },  
+        ...  
+    ],   
+    "styles" : [  
+        {"selector" : "#unique", "color" : "red", "size" : int },  
+        {"selector" : "comments", "color" : "green" },  
+        ...  
+    ],  
+    "comment" : "comLine",  
+    "mlCommentStart" : "mlCom",  
+    "mlCommentEnd" : "*/",  
+    "extensions" : ["txt","sql",...]  
 }
