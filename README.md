@@ -21,22 +21,20 @@ The structure of json document is described as follows
 >  
 ```json
 {  
-&emsp;&emsp;"words" : [  
-&emsp;&emsp;&emsp;&emsp;{"id" : "uniqueIdName", "pattern" : "regex" },  
-&emsp;&emsp;&emsp;&emsp;{"id" : "comLine", "pattern" : "//", "className": "comments" },  
-&emsp;&emsp;&emsp;&emsp;{"id" : "mlCom", "pattern" : "/@*", "className": "comments" },  
-&emsp;&emsp;&emsp;&emsp;{"id" : "unique", "pattern" : "regex", "className": "nonUnique" },  
-&emsp;&emsp;&emsp;&emsp;...  
-&emsp;&emsp;],   
-&emsp;&emsp;"styles" : [  
-&emsp;&emsp;&emsp;&emsp;{"selector" : "#unique", "color" : "red", "size" : int },  
-&emsp;&emsp;&emsp;&emsp;{"selector" : "comments", "color" : "green" },  
-&emsp;&emsp;&emsp;&emsp;...  
-&emsp;&emsp;],  
-&emsp;&emsp;"comment" : "comLine",  
-&emsp;&emsp;"mlCommentStart" : "mlCom",  
-&emsp;&emsp;"mlCommentEnd" : "*/",  
-&emsp;&emsp;"extensions" : ["txt","sql",...]  
+    "words" : [  
+        {"id" : "uniqueIdName", "pattern" : "regex" },  
+        {"id" : "comLine", "pattern" : "//", "className": "comments" },  
+        {"id" : "mlCom", "pattern" : "/@*", "className": "comments" },  
+        {"id" : "unique", "pattern" : "regex", "className": "nonUnique" }  
+    ],   
+    "styles" : [  
+        {"selector" : "#unique", "color" : "red", "size" : 12 },  
+        {"selector" : "comments", "color" : "green" },  
+    ],  
+    "comment" : "comLine",  
+    "mlCommentStart" : "mlCom",  
+    "mlCommentEnd" : "*/",  
+    "extensions" : ["txt","sql"]  
 }
 ```
 
