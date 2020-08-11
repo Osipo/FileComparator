@@ -42,7 +42,7 @@ The structure of json document is described as follows
 
 Property `"words"` is a list of ***words***. Each ***word*** is *JsonObject*  
 with two required *properties*:  
- - `"id"` specifies an unqiue name. By that name the ***word*** can be found.
+ - `"id"` specifies a unqiue name. By that name the ***word*** can be found.
  The value of this property is *JsonString*.
  - `"pattern"` specifies a ***regular expression*** for word. For example  
  an expression `[0-9]+` specifies an infinity numeric character string.  
@@ -53,7 +53,7 @@ This property is optional and used only for applying styles on specific set of *
 
 Property `"styles"` is a list of ***styles***. `"styles"` are optional. Each ***style*** is *JsonObject*    
 with one required property `"selector"` and 4 optionals.
- - `"selector"` specifies an unique name of ***style***.
+ - `"selector"` specifies a unique name of ***style***.
  Each ***style*** can be found by its **selector**.
  - `"color"` specifies a color of text *(foreground)*.
  - `"size"` specifies a size of text.  
@@ -82,5 +82,18 @@ The ***regular expressions*** syntax is described as follows:
  (You may type a multiple character sequence `abb...`. An operator of CONCATENATION `^` will be used implicitly.)  
  (So if you type a `abb` the regex will be `a^b^b`. Of course you can use `^` operator explicitly BUT THIS IS NOT RECOMMENDED!) 
  - `r1|r2` - the UNION of two ***regular expressions (r1 and r2)***.
- - `[A-Z]` - the characters class. It is shortance for UNION operation. (i.e it is equal to expression (A|B|...|Z)).
+ - `[A-Z]` - the characters class. It is shortance for UNION operation. (i.e it is equal to expression (A|B|...|Z)    ).
  - `(r)` - the GROUPING of *regex (r1)*.
+
+#### Regex quantifiers
+There are only two quantifiers are used `*` and `+` which means:
+ - `r1+` : one or more times exactly r1.
+ - `r1*` : zero or more times exactly r1.
+
+#### Regex details
+After processing all regexs the minimal DFA will be built.  
+Technically this is not formally the DFA. It is based on model  
+used in **Lex, JFLex and YACC** programs.
+
+## Technical requirements.
+Compiled on `JDK 1.8.0_161`.
