@@ -95,6 +95,7 @@ The ***regular expressions*** syntax is described as follows:
  Any single character expression is treated as operand.   
  WARNING: the length of the expression is the length of the JsonString  
  (** i.e. the length of the string which is a value of property `"pattern"`**)
+ 
 #### Regex quantifiers
 There are only two quantifiers are used `*` and `+` which means:
  - `r1+` : one or more times exactly r1.
