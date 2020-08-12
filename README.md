@@ -89,7 +89,10 @@ The ***regular expressions*** syntax is described as follows:
  Use to ignore operators (such as `^`, `|`, `(`, `)`,`*`,`+`,`_`).
  Any single character preceded with `@` is treated as an operand  
  Example: **regular expressions : `@*`, `@+`** are treated as `*` and `+`.
- They both match strings : `"+", "*"`.
+ They both match strings : `"+", "*"`.  
+ So to use `@` as operand you must type `@@`.
+ It is unnecessary to use `@` in regexs with single character. (Expressions like `"a", "+", "*"`)  
+ Any single character expression is treated as operand.
 #### Regex quantifiers
 There are only two quantifiers are used `*` and `+` which means:
  - `r1+` : one or more times exactly r1.
