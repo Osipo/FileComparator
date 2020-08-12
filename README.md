@@ -91,8 +91,10 @@ The ***regular expressions*** syntax is described as follows:
  Example: **regular expressions : `@*`, `@+`** are treated as `*` and `+`.
  They both match strings : `"+", "*"`.  
  So to use `@` as operand you must type `@@`.
- It is unnecessary to use `@` in regexs with single character. (Expressions like `"a", "+", "*"`)  
- Any single character expression is treated as operand.
+ It is unnecessary to use `@` in regexs with single character. (Expressions like `"a", "+", "*"` with length = 1)  
+ Any single character expression is treated as operand.   
+ WARNING: the length of the expression is the length of the JsonString  
+ (** i.e. the length of the string which is a value of property `"pattern"`**)
 #### Regex quantifiers
 There are only two quantifiers are used `*` and `+` which means:
  - `r1+` : one or more times exactly r1.
