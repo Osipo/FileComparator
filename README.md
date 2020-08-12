@@ -84,12 +84,12 @@ The ***regular expressions*** syntax is described as follows:
  - `r1|r2` - the UNION of two ***regular expressions (r1 and r2)***.
  - `[A-Z]` - the characters class. It is shortance for UNION operation. (i.e it is equal to expression (A|B|...|Z)    ).
  - `(r)` - the GROUPING of *regex (r1)*.
- - `_` - any single character. (The character code range is `[0..65535])
+ - `_` - any single character. (The character code range is [0..65535])
  - `@` - escape symbol. (like a `\` in many programming languages).  
  Use to ignore operators (such as `^`, `|`, `(`, `)`,`*`,`+`,`_`).
  Any single character preceded with `@` is treated as an operand  
  Example: **regular expressions : `@*`, `@+`** are treated as `*` and `+`.
- They both matched strings : `"+", "*"`.
+ They both match strings : `"+", "*"`.
 #### Regex quantifiers
 There are only two quantifiers are used `*` and `+` which means:
  - `r1+` : one or more times exactly r1.
@@ -99,7 +99,7 @@ There are only two quantifiers are used `*` and `+` which means:
 After all regexs will be processed the minimal DFA will be built.  
 Technically this is not formally the DFA. It is based on model  
 used in **Lex, JFLex and YACC** programs.  
-WARNING: All **regular expressions** ARE **CASE SENSITIVE**.
+WARNING: All **regular expressions** are **CASE SENSITIVE**.
 
 ## Technical requirements.
 Compiled on **JDK 1.8.0_161**.
